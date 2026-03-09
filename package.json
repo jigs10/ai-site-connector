@@ -1,7 +1,30 @@
 {
   "name": "ai-site-connector",
   "version": "1.0.0",
+  "description": "Seamlessly connect AI chat agents to your website with automatic scraping and pre-built React components.",
   "type": "module",
+  "author": "Jignesh Zala <jigs@genpdf.app>",
+  "license": "MIT",
+  "homepage": "https://github.com/jigs10/ai-site-connector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jigs10/ai-site-connector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jigs10/ai-site-connector/issues"
+  },
+  "keywords": [
+    "ai",
+    "chatbot",
+    "scraper",
+    "cli",
+    "react",
+    "nextjs",
+    "firecrawl",
+    "openai",
+    "anthropic",
+    "gemini"
+  ],
   "bin": {
     "ai-site-connector": "./dist/bin.js"
   },
@@ -9,15 +32,14 @@
   "scripts": {
     "dev": "tsx src/bin.ts",
     "build": "tsup src/index.ts src/bin.ts --format esm --clean --dts",
-    "chat": "node ./dist/bin.js chat"
+    "chat": "node ./dist/bin.js chat",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist",
-    "ai-site.config.json"
+    "README.md",
+    "LICENSE"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^25.3.5",
     "nodemon": "^3.1.14",
