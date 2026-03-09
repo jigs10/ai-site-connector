@@ -44,19 +44,34 @@ You can modify these values to suit your needs.
 
 ## Usage
 
-### Setup Command
+### Server Setup (Node.js/Backend)
 
-The `setup` command guides you through the initial configuration of the AI Site Connector. If no command is specified, `setup` is run by default.
+The server-side setup configures your AI provider and scrapes your website content into a local knowledge base (`ai-knowledge.md`). This knowledge base is used to provide context to the AI.
 
-```bash
-npx ai-site-connector setup
-# or simply
-npx ai-site-connector
-```
+1.  **Run the setup command**:
+    ```bash
+    npx ai-site-connector setup
+    ```
+2.  **Select "Server-based (Node.js)"** when prompted.
+3.  **Follow the interactive prompts** to configure your AI provider (OpenAI, Google, or Anthropic), enter your API keys, and provide the URL of the website you want to scrape.
+
+Once complete, you'll have an `ai-knowledge.md` file ready to be used by the agent.
+
+### Client Setup (React/Frontend)
+
+The client-side setup provides pre-built React components that you can easily integrate into your frontend application.
+
+1.  **Run the component command**:
+    ```bash
+    npx ai-site-connector component
+    # or select "Client-based" in the setup command
+    ```
+2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
+3.  The tool will create a `components/` directory in your project root containing the selected React components.
 
 ### Chat Command
 
-The `chat` command starts an interactive chat session with your configured AI model.
+To verify your setup and interact with your site's data via the CLI:
 
 ```bash
 npx ai-site-connector chat

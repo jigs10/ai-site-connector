@@ -11,6 +11,10 @@
     "build": "tsup src/index.ts src/bin.ts --format esm --clean --dts",
     "chat": "node ./dist/bin.js chat"
   },
+  "files": [
+    "dist",
+    "ai-site.config.json"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
