@@ -9,7 +9,7 @@ Botcli-site is a command-line interface (CLI) tool designed to interact with AI 
 
 ## Features
 
-*   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-5.4), Google (Gemini 3.1), and Anthropic (Claude 4.6).
+*   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-5), Google (Gemini 3.1), and Anthropic (Claude 4.6).
 *   **🌐 Smart Scraping**: Powered by Firecrawl to turn any website into a clean Markdown knowledge base with configurable page limits.
 *   **🧩 React Components**: Instant UI components (Chat Widget, Sticky Button) for your frontend.
 *   **💬 CLI Chat**: Test your AI agent directly in the terminal before deploying.
@@ -97,12 +97,12 @@ npx botcli-site chat
 
 ## Programmatic Usage
 
-You can also use the core logic in your own Node.js backend:
+You can also use the core logic in your own Node.js backend. The functions `askAgent` and `streamAgent` support both string prompts and the `messages` array format used by the Vercel AI SDK.
 
 ```typescript
 import { askAgent, streamAgent } from 'botcli-site';
 
-// 1. Simple text response
+// 1. Simple text response (supports string or message history)
 const text = await askAgent("How do I contact support?");
 console.log(text);
 
@@ -110,8 +110,10 @@ console.log(text);
 // app/api/chat/route.ts
 export async function POST(req: Request) {
   const { messages, prompt } = await req.json();
-  // Handles both string prompts or message arrays from useChat
+  
+  // Automatically handles string prompts or message arrays from useChat
   const result = await streamAgent(messages || prompt);
+  
   return result.toDataStreamResponse();
 }
 ```
