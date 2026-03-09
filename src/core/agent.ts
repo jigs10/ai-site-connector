@@ -33,7 +33,7 @@ function getModel() {
 // Helper to get knowledge base content
 function getKnowledge() {
   if (!fs.existsSync(KNOWLEDGE_PATH)) {
-    throw new Error("Knowledge base not found. Run 'npx ai-site-connector setup' first.");
+    throw new Error("Knowledge base not found. Run 'npx spiderbot setup' first.");
   }
   return fs.readFileSync(KNOWLEDGE_PATH, 'utf-8');
 }

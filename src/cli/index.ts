@@ -31,7 +31,7 @@ function getVersion() {
 
 function printHelp() {
   console.log(`
-Usage: ai-site-connector [command] [options]
+Usage: spiderbot [command] [options]
 
 Commands:
   setup      Interactive setup to configure AI and scrape site (default)

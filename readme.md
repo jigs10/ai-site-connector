@@ -1,11 +1,11 @@
-# AI Site Connector 🚀
+# Spiderbot 🚀
 
 Seamlessly connect AI chat bots to your website. This CLI tool automates website scraping for context and provides ready-to-use React components.
 
-[![npm version](https://img.shields.io/npm/v/ai-site-connector.svg)](https://www.npmjs.com/package/ai-site-connector)
+[![npm version](https://img.shields.io/npm/v/spiderbot.svg)](https://www.npmjs.com/package/spiderbot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The AI Site Connector is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
+Spiderbot is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
 ## Features
 
@@ -17,11 +17,11 @@ The AI Site Connector is a command-line interface (CLI) tool designed to interac
 
 ## Installation
 
-To use the AI Site Connector, you need to have Node.js and npm installed.
+To use Spiderbot, you need to have Node.js and npm installed.
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/jigs10/ai-site-connector.git
     cd ai-site-connector
     ```
 2.  **Install dependencies**:
@@ -38,7 +38,7 @@ To use the AI Site Connector, you need to have Node.js and npm installed.
 If you've installed it via NPM, you can simply run:
 
 ```bash
-npx ai-site-connector setup
+npx spiderbot setup
 ```
 
 ## Configuration
@@ -68,7 +68,7 @@ The server-side setup configures your AI provider and scrapes your website conte
 
 1.  **Run the setup command**:
     ```bash
-    npx ai-site-connector setup
+    npx spiderbot setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
 3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, and provide the URL of the website you want to scrape.
@@ -81,7 +81,7 @@ The client-side setup provides pre-built React components that you can easily in
 
 1.  **Run the component command**:
     ```bash
-    npx ai-site-connector component
+    npx spiderbot component
     ```
 2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
 3.  The tool will create a `components/` directory in your project root containing the selected React components.
@@ -91,7 +91,7 @@ The client-side setup provides pre-built React components that you can easily in
 To verify your setup and interact with your site's data via the CLI:
 
 ```bash
-npx ai-site-connector chat
+npx spiderbot chat
 ```
 
 ## Programmatic Usage
@@ -99,7 +99,7 @@ npx ai-site-connector chat
 You can also use the core logic in your own Node.js backend:
 
 ```typescript
-import { streamAgent } from 'ai-site-connector';
+import { streamAgent } from 'spiderbot';
 
 const response = await streamAgent("How do I contact support?");
 // ... handle stream

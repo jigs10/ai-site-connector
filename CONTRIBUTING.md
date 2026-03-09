@@ -1,6 +1,6 @@
-# Contributing to AI Site Connector 🚀
+# Contributing to Spiderbot 🚀
 
-Thank you for your interest in contributing to AI Site Connector! We welcome contributions from everyone.
+Thank you for your interest in contributing to Spiderbot! We welcome contributions from everyone.
 
 ## Code of Conduct
 
@@ -82,4 +82,4 @@ Please be respectful and professional in all your interactions. We follow the ge
 
 ## License
 
-By contributing to AI Site Connector, you agree that your contributions will be licensed under the MIT License.
+By contributing to Spiderbot, you agree that your contributions will be licensed under the MIT License.
