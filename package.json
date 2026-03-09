@@ -1,5 +1,5 @@
 {
-  "name": "spiderbot",
+  "name": "botcli-site",
   "version": "1.0.0",
   "description": "Seamlessly connect AI chat agents to your website with automatic scraping and pre-built React components.",
   "type": "module",
@@ -26,7 +26,7 @@
     "gemini"
   ],
   "bin": {
-    "spiderbot": "./dist/bin.js"
+    "botcli-site": "./dist/bin.js"
   },
   "main": "./dist/index.js",
   "scripts": {

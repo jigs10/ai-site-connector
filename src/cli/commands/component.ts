@@ -63,7 +63,7 @@ export default StickyButton;
 `;
 
 export async function componentCommand() {
-  p.intro(color.bgMagenta(color.black(" Spiderbot - Components ")));
+  p.intro(color.bgMagenta(color.black(" Botcli-site - Components ")));
 
   const project = await p.group(
     {

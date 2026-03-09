@@ -1,11 +1,11 @@
-# Spiderbot 🚀
+# Botcli-site 🚀
 
 Seamlessly connect AI chat bots to your website. This CLI tool automates website scraping for context and provides ready-to-use React components.
 
-[![npm version](https://img.shields.io/npm/v/spiderbot.svg)](https://www.npmjs.com/package/spiderbot)
+[![npm version](https://img.shields.io/npm/v/botcli-site.svg)](https://www.npmjs.com/package/botcli-site)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Spiderbot is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
+Botcli-site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
 ## Features
 
@@ -17,7 +17,7 @@ Spiderbot is a command-line interface (CLI) tool designed to interact with AI mo
 
 ## Installation
 
-To use Spiderbot, you need to have Node.js and npm installed.
+To use Botcli-site, you need to have Node.js and npm installed.
 
 1.  **Clone the repository**:
     ```bash
@@ -38,7 +38,7 @@ To use Spiderbot, you need to have Node.js and npm installed.
 If you've installed it via NPM, you can simply run:
 
 ```bash
-npx spiderbot setup
+npx botcli-site setup
 ```
 
 ## Configuration
@@ -68,7 +68,7 @@ The server-side setup configures your AI provider and scrapes your website conte
 
 1.  **Run the setup command**:
     ```bash
-    npx spiderbot setup
+    npx botcli-site setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
 3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, and provide the URL of the website you want to scrape.
@@ -81,7 +81,7 @@ The client-side setup provides pre-built React components that you can easily in
 
 1.  **Run the component command**:
     ```bash
-    npx spiderbot component
+    npx botcli-site component
     ```
 2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
 3.  The tool will create a `components/` directory in your project root containing the selected React components.
@@ -91,7 +91,7 @@ The client-side setup provides pre-built React components that you can easily in
 To verify your setup and interact with your site's data via the CLI:
 
 ```bash
-npx spiderbot chat
+npx botcli-site chat
 ```
 
 ## Programmatic Usage
@@ -99,7 +99,7 @@ npx spiderbot chat
 You can also use the core logic in your own Node.js backend:
 
 ```typescript
-import { streamAgent } from 'spiderbot';
+import { streamAgent } from 'botcli-site';
 
 const response = await streamAgent("How do I contact support?");
 // ... handle stream

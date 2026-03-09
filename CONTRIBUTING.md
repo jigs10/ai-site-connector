@@ -1,6 +1,6 @@
-# Contributing to Spiderbot 🚀
+# Contributing to Botcli-site 🚀
 
-Thank you for your interest in contributing to Spiderbot! We welcome contributions from everyone.
+Thank you for your interest in contributing to Botcli-site! We welcome contributions from everyone.
 
 ## Code of Conduct
 
@@ -82,4 +82,4 @@ Please be respectful and professional in all your interactions. We follow the ge
 
 ## License
 
-By contributing to Spiderbot, you agree that your contributions will be licensed under the MIT License.
+By contributing to Botcli-site, you agree that your contributions will be licensed under the MIT License.
