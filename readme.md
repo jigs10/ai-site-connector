@@ -100,10 +100,49 @@ npx botcli-site chat
 You can also use the core logic in your own Node.js backend:
 
 ```typescript
-import { streamAgent } from 'botcli-site';
+import { askAgent, streamAgent } from 'botcli-site';
 
-const response = await streamAgent("How do I contact support?");
-// ... handle stream
+// 1. Simple text response
+const text = await askAgent("How do I contact support?");
+console.log(text);
+
+// 2. Streaming response (Next.js API Route)
+// app/api/chat/route.ts
+export async function POST(req: Request) {
+  const { messages, prompt } = await req.json();
+  // Handles both string prompts or message arrays from useChat
+  const result = await streamAgent(messages || prompt);
+  return result.toDataStreamResponse();
+}
+```
+
+### React Usage Example
+
+To avoid common errors like "Objects are not valid as a React child", use the following pattern in your frontend:
+
+```tsx
+'use client';
+import { useChat } from 'ai/react';
+
+export default function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  
+  return (
+    <div>
+      {messages.map(m => (
+        <div key={m.id}>
+          {m.role === 'user' ? 'User: ' : 'AI: '}
+          {m.content}
+        </div>
+      ))}
+
+      <form onSubmit={handleSubmit}>
+        <input value={input} onChange={handleInputChange} />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
+}
 ```
 
 ## Contributing
