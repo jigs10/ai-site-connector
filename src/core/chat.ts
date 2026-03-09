@@ -24,8 +24,12 @@ export async function chatLoop() {
     s.start('Thinking...');
 
     try {
-      // Pass the question to your multi-model agent
-      const answer = await askAgent(question);
+      // Pass the messages history to your multi-model agent
+      const messages = [
+        ...history,
+        { role: 'user' as const, content: question }
+      ];
+      const answer = await askAgent(messages);
       s.stop('Answered:');
       
       // Print the answer with a nice border

@@ -1,4 +1,4 @@
-import { generateText, streamText, type StreamTextResult } from 'ai';
+import { generateText, streamText, type StreamTextResult, type ModelMessage } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
@@ -41,22 +41,36 @@ function getKnowledge() {
 /**
  * Method 1: Simple text response (Perfect for CLI/Scripts)
  */
-export async function askAgent(question: string) {
-  const { text } = await generateText({
+export async function askAgent(input: string | ModelMessage[]) {
+  const options: any = {
     model: getModel(),
     system: `You are an expert assistant. Knowledge: ${getKnowledge()}`,
-    prompt: question,
-  });
+  };
+
+  if (typeof input === 'string') {
+    options.prompt = input;
+  } else {
+    options.messages = input;
+  }
+
+  const { text } = await generateText(options);
   return text;
 }
 
 /**
  * Method 2: Streaming response (Perfect for Next.js/React)
  */
-export async function streamAgent(question: string): Promise<StreamTextResult<any, any>> {
-  return streamText({
+export async function streamAgent(input: string | ModelMessage[]): Promise<StreamTextResult<any, any>> {
+  const options: any = {
     model: getModel(),
     system: `You are an expert assistant. Knowledge: ${getKnowledge()}`,
-    prompt: question,
-  });
+  };
+
+  if (typeof input === 'string') {
+    options.prompt = input;
+  } else {
+    options.messages = input;
+  }
+
+  return streamText(options);
 }
