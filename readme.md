@@ -1,13 +1,19 @@
-# AI Site Connector
+# AI Site Connector 🚀
+
+Seamlessly connect AI chat bots to your website. This CLI tool automates website scraping for context and provides ready-to-use React components.
+
+[![npm version](https://img.shields.io/npm/v/ai-site-connector.svg)](https://www.npmjs.com/package/ai-site-connector)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 The AI Site Connector is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
 ## Features
 
-*   **Flexible AI Model Integration**: Supports various AI SDKs (Anthropic, Google, OpenAI) allowing you to switch between different AI providers.
-*   **Website Content Scraping**: Utilizes `firecrawl-js` for efficient and effective scraping of website content, which can then be used as context for AI interactions.
-*   **Interactive Chat**: Engage in a conversational loop with your selected AI model, leveraging scraped data for more informed responses.
-*   **Easy Setup**: A straightforward setup process to get your AI connector running quickly.
+*   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-4o), Google (Gemini 2.0), and Anthropic (Claude 3.5).
+*   **🌐 Smart Scraping**: Powered by Firecrawl to turn any website into a clean Markdown knowledge base.
+*   **🧩 React Components**: Instant UI components (Chat Widget, Sticky Button) for your frontend.
+*   **💬 CLI Chat**: Test your AI agent directly in the terminal before deploying.
+*   **🛠 Easy Setup**: A straightforward setup process to get your AI connector running quickly.
 
 ## Installation
 
@@ -27,6 +33,14 @@ To use the AI Site Connector, you need to have Node.js and npm installed.
     npm run build
     ```
 
+## Quick Start (NPM)
+
+If you've installed it via NPM, you can simply run:
+
+```bash
+npx ai-site-connector setup
+```
+
 ## Configuration
 
 The `ai-site.config.json` file is used to configure the AI model, provider, and the target URL for scraping. An example configuration looks like this:
@@ -40,7 +54,11 @@ The `ai-site.config.json` file is used to configure the AI model, provider, and 
 }
 ```
 
-You can modify these values to suit your needs.
+You can modify these values to suit your needs. Sensitive keys are stored in a `.env` file (see [.env.example](.env.example) for a template):
+- `OPENAI_API_KEY`
+- `GEMINI_API_KEY`
+- `ANTHROPIC_API_KEY`
+- `FIRECRAWL_API_KEY`
 
 ## Usage
 
@@ -53,7 +71,7 @@ The server-side setup configures your AI provider and scrapes your website conte
     npx ai-site-connector setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
-3.  **Follow the interactive prompts** to configure your AI provider (OpenAI, Google, or Anthropic), enter your API keys, and provide the URL of the website you want to scrape.
+3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, and provide the URL of the website you want to scrape.
 
 Once complete, you'll have an `ai-knowledge.md` file ready to be used by the agent.
 
@@ -64,7 +82,6 @@ The client-side setup provides pre-built React components that you can easily in
 1.  **Run the component command**:
     ```bash
     npx ai-site-connector component
-    # or select "Client-based" in the setup command
     ```
 2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
 3.  The tool will create a `components/` directory in your project root containing the selected React components.
@@ -77,12 +94,21 @@ To verify your setup and interact with your site's data via the CLI:
 npx ai-site-connector chat
 ```
 
-## Development
+## Programmatic Usage
 
-For developers contributing to `ai-site-connector`, the `dev` script provides a convenient way to run the CLI directly from its TypeScript source code without requiring a prior build step. This is ideal for active development, debugging, and testing changes quickly.
+You can also use the core logic in your own Node.js backend:
 
-```bash
-npm run dev
+```typescript
+import { streamAgent } from 'ai-site-connector';
+
+const response = await streamAgent("How do I contact support?");
+// ... handle stream
 ```
 
-This command executes `src/bin.ts` using `ts-node`, enabling a faster development cycle by bypassing the compilation process (`npm run build`).
+## Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
