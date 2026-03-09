@@ -2,7 +2,7 @@ import FirecrawlApp from '@mendable/firecrawl-js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export async function scrapeToMarkdown(url: string): Promise<string> {
+export async function scrapeToMarkdown(url: string, limit: number = 20): Promise<string> {
   const firecrawlKey = process.env.FIRECRAWL_API_KEY || '';
   const app = new FirecrawlApp({ 
     apiKey: firecrawlKey
@@ -12,7 +12,7 @@ export async function scrapeToMarkdown(url: string): Promise<string> {
     // .crawl() is the modern 'waiter' method.
     // It returns a result object once the crawl is finished.
     const result: any = await app.crawl(url, {
-      limit: 1,
+      limit: limit,
       scrapeOptions: {
         formats: ['markdown'],
       }

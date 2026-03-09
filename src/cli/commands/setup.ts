@@ -84,6 +84,13 @@ export async function setupCommand() {
           placeholder: existingConfig.url || "https://example.com",
           validate: (v) => (!v ? "URL required" : undefined),
         }),
+      limit: () =>
+        p.text({
+          message: "Max pages to scrape",
+          placeholder: (existingConfig.limit || 20).toString(),
+          initialValue: (existingConfig.limit || 20).toString(),
+          validate: (v) => (isNaN(Number(v)) ? "Must be a number" : undefined),
+        }),
       saveConfig: () =>
         p.confirm({
           message: "Save these settings to config and .env?",
@@ -105,6 +112,7 @@ export async function setupCommand() {
       provider: project.provider as AiSiteConfig["provider"],
       model: project.model as string,
       url: project.url as string,
+      limit: Number(project.limit),
       updatedAt: new Date().toISOString(),
     };
     saveConfig(configData);
@@ -117,7 +125,7 @@ export async function setupCommand() {
   s.start(`Analyzing ${project.url}...`);
   try {
     process.env.FIRECRAWL_API_KEY = (project.firecrawlKey as string) || process.env.FIRECRAWL_API_KEY;
-    const markdown = await scrapeToMarkdown(project.url as string);
+    const markdown = await scrapeToMarkdown(project.url as string, Number(project.limit));
 
     fs.writeFileSync(KNOWLEDGE_PATH, markdown);
 

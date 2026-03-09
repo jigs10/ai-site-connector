@@ -5,6 +5,7 @@ export interface AiSiteConfig {
   provider?: "openai" | "google" | "anthropic";
   model?: string;
   url?: string;
+  limit?: number;
   updatedAt?: string;
 }
 
