@@ -1,6 +1,6 @@
 {
   "name": "botcli-site",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Seamlessly connect AI chat agents to your website with automatic scraping and pre-built React components.",
   "type": "module",
   "author": "Jignesh Zala <jigs@genpdf.app>",
