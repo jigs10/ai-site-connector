@@ -33,7 +33,7 @@ export function getModel() {
 // Helper to get knowledge base content
 export function getKnowledge() {
   if (!fs.existsSync(KNOWLEDGE_PATH)) {
-    throw new Error("Knowledge base not found. Run 'npx botcli-site setup' first.");
+    throw new Error("Knowledge base not found. Run 'npx bot2site setup' first.");
   }
   return fs.readFileSync(KNOWLEDGE_PATH, 'utf-8');
 }

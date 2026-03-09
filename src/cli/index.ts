@@ -31,7 +31,7 @@ function getVersion() {
 
 function printHelp() {
   console.log(`
-Usage: botcli-site [command] [options]
+Usage: bot2site [command] [options]
 
 Commands:
   setup      Interactive setup to configure AI and scrape site (default)

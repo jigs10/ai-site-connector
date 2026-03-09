@@ -63,7 +63,7 @@ export default StickyButton;
 `;
 
 export async function componentCommand() {
-  p.intro(color.bgMagenta(color.black(" Botcli-site - Components ")));
+  p.intro(color.bgMagenta(color.black(" Bot2site - Components ")));
 
   const project = await p.group(
     {

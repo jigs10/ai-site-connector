@@ -12,7 +12,7 @@ export async function serverSetupCommand() {
 }
 
 export async function setupCommand() {
-  p.intro(color.bgCyan(color.black(" botcli-site ")));
+  p.intro(color.bgCyan(color.black(" bot2site ")));
 
   const existingConfig = loadConfig();
   if (Object.keys(existingConfig).length > 0) {
@@ -145,6 +145,6 @@ export async function setupCommand() {
       `• ${color.cyan("ai-site.config.json")} (Preferences)\n\n` +
       `${color.bold("Next steps:")}\n` +
       `${color.yellow("1.")} Import ${color.green("askAgent")} in your code\n` +
-      `${color.yellow("2.")} Run ${color.magenta("npx botcli-site chat")} to start chatting`
+      `${color.yellow("2.")} Run ${color.magenta("npx bot2site chat")} to start chatting`
   );
 }

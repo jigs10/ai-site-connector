@@ -1,11 +1,11 @@
-# Botcli-site 🚀
+# Bot2site 🚀
 
 Seamlessly connect AI chat bots to your website. This CLI tool automates website scraping for context and provides ready-to-use React components.
 
-[![npm version](https://img.shields.io/npm/v/botcli-site.svg)](https://www.npmjs.com/package/botcli-site)
+[![npm version](https://img.shields.io/npm/v/bot2site.svg)](https://www.npmjs.com/package/bot2site)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Botcli-site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
+Bot2site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
 ## Features
 
@@ -17,7 +17,7 @@ Botcli-site is a command-line interface (CLI) tool designed to interact with AI 
 
 ## Installation
 
-To use Botcli-site, you need to have Node.js and npm installed.
+To use Bot2site, you need to have Node.js and npm installed.
 
 1.  **Clone the repository**:
     ```bash
@@ -38,7 +38,7 @@ To use Botcli-site, you need to have Node.js and npm installed.
 If you've installed it via NPM, you can simply run:
 
 ```bash
-npx botcli-site setup
+npx bot2site setup
 ```
 
 ## Configuration
@@ -69,7 +69,7 @@ The server-side setup configures your AI provider and scrapes your website conte
 
 1.  **Run the setup command**:
     ```bash
-    npx botcli-site setup
+    npx bot2site setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
 3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, provide the URL of the website, and specify the number of pages to scrape.
@@ -82,7 +82,7 @@ The client-side setup provides pre-built React components that you can easily in
 
 1.  **Run the component command**:
     ```bash
-    npx botcli-site component
+    npx bot2site component
     ```
 2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
 3.  The tool will create a `components/` directory in your project root containing the selected React components.
@@ -92,7 +92,7 @@ The client-side setup provides pre-built React components that you can easily in
 To verify your setup and interact with your site's data via the CLI:
 
 ```bash
-npx botcli-site chat
+npx bot2site chat
 ```
 
 ## Programmatic Usage
@@ -100,7 +100,7 @@ npx botcli-site chat
 You can also use the core logic in your own Node.js backend. The function `askAgent` supports both string prompts and the `messages` array format used by the Vercel AI SDK.
 
 ```typescript
-import { askAgent } from 'botcli-site';
+import { askAgent } from 'bot2site';
 
 // 1. Simple text response (supports string or message history)
 const text = await askAgent("How do I contact support?");
@@ -115,7 +115,7 @@ You can use `askAgent` within Next.js Server Actions for a clean client-server i
 ```typescript
 'use server';
 
-import { askAgent } from 'botcli-site';
+import { askAgent } from 'bot2site';
 
 export async function getAnswer(question: string) {
   const text = await askAgent(question);
