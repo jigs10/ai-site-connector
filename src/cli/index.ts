@@ -1,5 +1,6 @@
 import { chatLoop } from "../core/chat.js";
 import { setupCommand } from "./commands/setup.js";
+import { componentCommand } from "./commands/component.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,7 +11,10 @@ export async function runCli() {
 
   if (command === "chat") {
     await chatLoop();
-  } else {
+  } else if (command === "component") {
+    await componentCommand();
+  } 
+  else {
     await setupCommand();
   }
 }

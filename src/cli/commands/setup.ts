@@ -5,6 +5,11 @@ import path from "node:path";
 import { providerModels } from "../../core/constants.js";
 import { loadConfig, saveConfig, updateEnv, type AiSiteConfig } from "../../core/config.js";
 import { scrapeToMarkdown } from "../../core/scraper.js";
+import { componentCommand } from "./component.js";
+
+export async function serverSetupCommand() {
+  p.log.info(color.cyan("Initializing server-side setup..."));
+}
 
 export async function setupCommand() {
   p.intro(color.bgCyan(color.black(" ai-site-connector ")));
@@ -12,6 +17,29 @@ export async function setupCommand() {
   const existingConfig = loadConfig();
   if (Object.keys(existingConfig).length > 0) {
     p.log.info(color.dim("Found existing configuration."));
+  }
+
+  const appType = await p.select({
+    message: "Is this a client-based (React/Next.js) or server-based (Node.js) application?",
+    options: [
+      { value: "client", label: "Client-based (React/Next.js)" },
+      { value: "server", label: "Server-based (Node.js)" },
+    ],
+  });
+
+  if (p.isCancel(appType)) {
+    p.cancel("Setup aborted.");
+    process.exit(0);
+  }
+
+  if (appType === "client") {
+    await componentCommand();
+    p.outro(color.bgGreen(color.black(" Component setup complete! ")) + "\n\n" +
+            color.dim("──────────────────────────────────────────────────") + "\n" +
+            color.bold("Next steps:") + "\n" +
+            color.yellow("1.") + " Review the newly added components in your 'components' directory.\n" +
+            color.yellow("2.") + " Integrate them into your React/Next.js application as needed.");
+    return;
   }
 
   const project = await p.group(
@@ -85,6 +113,7 @@ export async function setupCommand() {
     p.log.step(color.green("Config and .env updated."));
   }
 
+  await serverSetupCommand();
   s.start(`Analyzing ${project.url}...`);
   try {
     process.env.FIRECRAWL_API_KEY = (project.firecrawlKey as string) || process.env.FIRECRAWL_API_KEY;
