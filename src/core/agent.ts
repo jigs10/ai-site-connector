@@ -18,15 +18,15 @@ function getModel() {
   if (provider === 'google') {
     const apiKey = process.env.GEMINI_API_KEY;
     const google = createGoogleGenerativeAI({ apiKey });
-    return google(modelName || 'gemini-1.5-flash');
+    return google(modelName || 'gemini-3.1-flash-lite');
   } else if (provider === 'anthropic') {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     const anthropic = createAnthropic({ apiKey });
-    return anthropic(modelName || 'claude-3-5-sonnet-20240620');
+    return anthropic(modelName || 'claude-sonnet-4.6');
   } else {
     const apiKey = process.env.OPENAI_API_KEY;
     const openai = createOpenAI({ apiKey });
-    return openai(modelName || 'gpt-4o');
+    return openai(modelName || 'gpt-5-mini');
   }
 }
 

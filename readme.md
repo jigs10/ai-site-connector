@@ -9,7 +9,7 @@ The AI Site Connector is a command-line interface (CLI) tool designed to interac
 
 ## Features
 
-*   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-4o), Google (Gemini 2.0), and Anthropic (Claude 3.5).
+*   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-5.4), Google (Gemini 3.1), and Anthropic (Claude 4.6).
 *   **🌐 Smart Scraping**: Powered by Firecrawl to turn any website into a clean Markdown knowledge base.
 *   **🧩 React Components**: Instant UI components (Chat Widget, Sticky Button) for your frontend.
 *   **💬 CLI Chat**: Test your AI agent directly in the terminal before deploying.
@@ -47,7 +47,7 @@ The `ai-site.config.json` file is used to configure the AI model, provider, and 
 
 ```json
 {
-  "model": "gemini-2.0-flash-exp",
+  "model": "gemini-3.1-flash-lite",
   "provider": "google",
   "updatedAt": "2026-03-09T04:44:35.157Z",
   "url": "https://example.com/"
