@@ -23,7 +23,6 @@ export const providerModels: Record<string, ModelOption[]> = {
     { value: "gemini-2.5-flash", label: "Gemini 2.5 Flash", hint: "Excellent speed/quality balance", category: "balanced" },
     { value: "gemini-3-flash", label: "Gemini 3 Flash", hint: "Optimized for tool-use and audio/visual", category: "agent" },
     { value: "gemini-3.1-flash-lite", label: "Gemini 3.1 Flash-Lite", hint: "Ultra-fast for high-volume", category: "cost-efficient" },
-    { value: "gemini-2.0-flash-lite", label: "Gemini 2.0 Flash-Lite", hint: "Cheapest high-volume option", category: "cost-efficient" },
   ],
   anthropic: [
     { value: "claude-opus-4.6", label: "Claude 4.6 Opus", hint: "Smartest for complex research", category: "frontier" },
@@ -31,6 +30,5 @@ export const providerModels: Record<string, ModelOption[]> = {
     { value: "claude-sonnet-4.6", label: "Claude 4.6 Sonnet", hint: "Best overall, 1M context window", category: "balanced" },
     { value: "claude-sonnet-4.5", label: "Claude 4.5 Sonnet", hint: "State of the art logic", category: "balanced" },
     { value: "claude-haiku-4.5", label: "Claude 4.5 Haiku", hint: "Extremely fast and affordable", category: "cost-efficient" },
-    { value: "claude-haiku-4", label: "Claude 4 Haiku", hint: "Fastest option for simple tasks", category: "cost-efficient" },
   ],
 };
