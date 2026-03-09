@@ -10,7 +10,7 @@ Botcli-site is a command-line interface (CLI) tool designed to interact with AI 
 ## Features
 
 *   **🤖 Multi-Provider Support**: Works with OpenAI (GPT-5.4), Google (Gemini 3.1), and Anthropic (Claude 4.6).
-*   **🌐 Smart Scraping**: Powered by Firecrawl to turn any website into a clean Markdown knowledge base.
+*   **🌐 Smart Scraping**: Powered by Firecrawl to turn any website into a clean Markdown knowledge base with configurable page limits.
 *   **🧩 React Components**: Instant UI components (Chat Widget, Sticky Button) for your frontend.
 *   **💬 CLI Chat**: Test your AI agent directly in the terminal before deploying.
 *   **🛠 Easy Setup**: A straightforward setup process to get your AI connector running quickly.
@@ -50,7 +50,8 @@ The `ai-site.config.json` file is used to configure the AI model, provider, and 
   "model": "gemini-3.1-flash-lite",
   "provider": "google",
   "updatedAt": "2026-03-09T04:44:35.157Z",
-  "url": "https://example.com/"
+  "url": "https://example.com/",
+  "limit": 20
 }
 ```
 
@@ -71,7 +72,7 @@ The server-side setup configures your AI provider and scrapes your website conte
     npx botcli-site setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
-3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, and provide the URL of the website you want to scrape.
+3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, provide the URL of the website, and specify the number of pages to scrape.
 
 Once complete, you'll have an `ai-knowledge.md` file ready to be used by the agent.
 
