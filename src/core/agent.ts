@@ -1,4 +1,4 @@
-import { generateText, streamText, type StreamTextResult, type ModelMessage } from 'ai';
+import { generateText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Helper to get the correct model based on environment variables
-function getModel() {
+export function getModel() {
   const config = loadConfig();
 
   const provider = config.provider || 'openai';
@@ -31,17 +31,15 @@ function getModel() {
 }
 
 // Helper to get knowledge base content
-function getKnowledge() {
+export function getKnowledge() {
   if (!fs.existsSync(KNOWLEDGE_PATH)) {
     throw new Error("Knowledge base not found. Run 'npx botcli-site setup' first.");
   }
   return fs.readFileSync(KNOWLEDGE_PATH, 'utf-8');
 }
 
-/**
- * Method 1: Simple text response (Perfect for CLI/Scripts)
- */
-export async function askAgent(input: string | ModelMessage[]) {
+// Method 1: Simple text response (Perfect for CLI/Scripts)
+export async function askAgent(input: string | any[]) {
   const options: any = {
     model: getModel(),
     system: `You are an expert assistant. Knowledge: ${getKnowledge()}`,
@@ -55,22 +53,4 @@ export async function askAgent(input: string | ModelMessage[]) {
 
   const { text } = await generateText(options);
   return text;
-}
-
-/**
- * Method 2: Streaming response (Perfect for Next.js/React)
- */
-export async function streamAgent(input: string | ModelMessage[]): Promise<StreamTextResult<any, any>> {
-  const options: any = {
-    model: getModel(),
-    system: `You are an expert assistant. Knowledge: ${getKnowledge()}`,
-  };
-
-  if (typeof input === 'string') {
-    options.prompt = input;
-  } else {
-    options.messages = input;
-  }
-
-  return streamText(options);
 }

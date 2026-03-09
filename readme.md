@@ -97,51 +97,57 @@ npx botcli-site chat
 
 ## Programmatic Usage
 
-You can also use the core logic in your own Node.js backend. The functions `askAgent` and `streamAgent` support both string prompts and the `messages` array format used by the Vercel AI SDK.
+You can also use the core logic in your own Node.js backend. The function `askAgent` supports both string prompts and the `messages` array format used by the Vercel AI SDK.
 
 ```typescript
-import { askAgent, streamAgent } from 'botcli-site';
+import { askAgent } from 'botcli-site';
 
 // 1. Simple text response (supports string or message history)
 const text = await askAgent("How do I contact support?");
 console.log(text);
+```
 
-// 2. Streaming response (Next.js API Route)
-// app/api/chat/route.ts
-export async function POST(req: Request) {
-  const { messages, prompt } = await req.json();
-  
-  // Automatically handles string prompts or message arrays from useChat
-  const result = await streamAgent(messages || prompt);
-  
-  return result.toDataStreamResponse();
+### Next.js Server Actions Example
+
+You can use `askAgent` within Next.js Server Actions for a clean client-server integration:
+
+**actions.ts (Server)**
+```typescript
+'use server';
+
+import { askAgent } from 'botcli-site';
+
+export async function getAnswer(question: string) {
+  const text = await askAgent(question);
+  return { text };
 }
 ```
 
-### React Usage Example
-
-To avoid common errors like "Objects are not valid as a React child", use the following pattern in your frontend:
-
+**page.tsx (Client)**
 ```tsx
 'use client';
-import { useChat } from 'ai/react';
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
-  
+import { useState } from 'react';
+import { getAnswer } from './actions';
+
+export default function Home() {
+  const [generation, setGeneration] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+
   return (
     <div>
-      {messages.map(m => (
-        <div key={m.id}>
-          {m.role === 'user' ? 'User: ' : 'AI: '}
-          {m.content}
-        </div>
-      ))}
-
-      <form onSubmit={handleSubmit}>
-        <input value={input} onChange={handleInputChange} />
-        <button type="submit">Send</button>
-      </form>
+      <button
+        disabled={loading}
+        onClick={async () => {
+          setLoading(true);
+          const { text } = await getAnswer('What are the main features?');
+          setGeneration(text);
+          setLoading(false);
+        }}
+      >
+        {loading ? 'Thinking...' : 'Ask AI'}
+      </button>
+      <div style={{ whiteSpace: 'pre-wrap' }}>{generation}</div>
     </div>
   );
 }

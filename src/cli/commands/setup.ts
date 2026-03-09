@@ -144,7 +144,7 @@ export async function setupCommand() {
       `• ${color.cyan(".env")} (API Keys stored)\n` +
       `• ${color.cyan("ai-site.config.json")} (Preferences)\n\n` +
       `${color.bold("Next steps:")}\n` +
-      `${color.yellow("1.")} Import ${color.green("streamAgent")} in your code\n` +
+      `${color.yellow("1.")} Import ${color.green("askAgent")} in your code\n` +
       `${color.yellow("2.")} Run ${color.magenta("npx botcli-site chat")} to start chatting`
   );
 }
