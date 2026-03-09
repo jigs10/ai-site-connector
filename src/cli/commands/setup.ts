@@ -3,7 +3,7 @@ import color from "picocolors";
 import fs from "node:fs";
 import path from "node:path";
 import { providerModels } from "../../core/constants.js";
-import { loadConfig, saveConfig, updateEnv, type AiSiteConfig } from "../../core/config.js";
+import { loadConfig, saveConfig, updateEnv, KNOWLEDGE_PATH, type AiSiteConfig } from "../../core/config.js";
 import { scrapeToMarkdown } from "../../core/scraper.js";
 import { componentCommand } from "./component.js";
 
@@ -119,10 +119,9 @@ export async function setupCommand() {
     process.env.FIRECRAWL_API_KEY = (project.firecrawlKey as string) || process.env.FIRECRAWL_API_KEY;
     const markdown = await scrapeToMarkdown(project.url as string);
 
-    const outputFileName = "ai-knowledge.md";
-    fs.writeFileSync(path.join(process.cwd(), outputFileName), markdown);
+    fs.writeFileSync(KNOWLEDGE_PATH, markdown);
 
-    s.stop(`Knowledge Base created: ${color.cyan(outputFileName)}`);
+    s.stop(`Knowledge Base created: ${color.cyan("ai-knowledge.md")}`);
   } catch (err: any) {
     s.stop(color.red("Scraping failed"));
     p.log.error(err.message);

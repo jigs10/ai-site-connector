@@ -3,7 +3,7 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import fs from 'node:fs';
-import { loadConfig } from './config.js';
+import { loadConfig, KNOWLEDGE_PATH } from './config.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -32,10 +32,10 @@ function getModel() {
 
 // Helper to get knowledge base content
 function getKnowledge() {
-  if (!fs.existsSync('ai-knowledge.md')) {
-    throw new Error("Knowledge base not found. Run 'npx ai-site-connector' first.");
+  if (!fs.existsSync(KNOWLEDGE_PATH)) {
+    throw new Error("Knowledge base not found. Run 'npx ai-site-connector setup' first.");
   }
-  return fs.readFileSync('ai-knowledge.md', 'utf-8');
+  return fs.readFileSync(KNOWLEDGE_PATH, 'utf-8');
 }
 
 /**

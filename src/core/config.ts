@@ -10,6 +10,7 @@ export interface AiSiteConfig {
 
 export const CONFIG_PATH = path.join(process.cwd(), "ai-site.config.json");
 export const ENV_PATH = path.join(process.cwd(), ".env");
+export const KNOWLEDGE_PATH = path.join(process.cwd(), "ai-knowledge.md");
 
 export function loadConfig(): AiSiteConfig {
   if (fs.existsSync(CONFIG_PATH)) {
