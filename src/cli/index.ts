@@ -24,9 +24,9 @@ function getVersion() {
       return JSON.parse(fs.readFileSync(devPkgPath, "utf-8")).version;
     }
   } catch {
-    return "1.0.0";
+    return "1.0.1";
   }
-  return "1.0.0";
+  return "1.0.1";
 }
 
 function printHelp() {
