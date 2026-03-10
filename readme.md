@@ -1,11 +1,11 @@
-# Bot2site 🚀
+# Bot4site 🚀
 
 Seamlessly connect AI chat bots to your website. This CLI tool automates website scraping for context and provides ready-to-use React components.
 
-[![npm version](https://img.shields.io/npm/v/bot2site.svg)](https://www.npmjs.com/package/bot2site)
+[![npm version](https://img.shields.io/npm/v/bot4site.svg)](https://www.npmjs.com/package/bot4site)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Bot2site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
+Bot4site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
 ## Features
 
@@ -17,7 +17,7 @@ Bot2site is a command-line interface (CLI) tool designed to interact with AI mod
 
 ## Installation
 
-To use Bot2site, you need to have Node.js and npm installed.
+To use Bot4site, you need to have Node.js and npm installed.
 
 1.  **Clone the repository**:
     ```bash
@@ -38,7 +38,7 @@ To use Bot2site, you need to have Node.js and npm installed.
 If you've installed it via NPM, you can simply run:
 
 ```bash
-npx bot2site setup
+npx bot4site setup
 ```
 
 ## Configuration
@@ -70,7 +70,7 @@ The server-side setup configures your AI provider and scrapes your website conte
 
 1.  **Run the setup command**:
     ```bash
-    npx bot2site setup
+    npx bot4site setup
     ```
 2.  **Select "Server-based (Node.js)"** when prompted.
 3.  **Follow the interactive prompts** to configure your AI provider, enter your API keys, provide the URL of the website, and specify the number of pages to scrape.
@@ -83,7 +83,7 @@ The client-side setup provides pre-built React components that you can easily in
 
 1.  **Run the component command**:
     ```bash
-    npx bot2site component
+    npx bot4site component
     ```
 2.  **Select the components** you want to add (e.g., Chat Widget, Sticky Button).
 3.  The tool will create a `components/` directory in your project root containing the selected React components.
@@ -93,7 +93,7 @@ The client-side setup provides pre-built React components that you can easily in
 To verify your setup and interact with your site's data via the CLI:
 
 ```bash
-npx bot2site chat
+npx bot4site chat
 ```
 
 ## Programmatic Usage
@@ -101,7 +101,7 @@ npx bot2site chat
 You can also use the core logic in your own Node.js backend. The function `askAgent` supports both string prompts and the `messages` array format used by the Vercel AI SDK.
 
 ```typescript
-import { askAgent } from 'bot2site';
+import { askAgent } from 'bot4site';
 
 // 1. Simple text response (supports string or message history)
 const text = await askAgent("How do I contact support?");
@@ -110,10 +110,10 @@ console.log(text);
 
 ### Global vs. Local Overrides
 
-Bot2site uses a hierarchical configuration system. Your `ai-site.config.json` serves as the **Global Default**, but you can provide **Local Overrides** for specific function calls.
+Bot4site uses a hierarchical configuration system. Your `ai-site.config.json` serves as the **Global Default**, but you can provide **Local Overrides** for specific function calls.
 
 ```typescript
-import { askAgent } from 'bot2site';
+import { askAgent } from 'bot4site';
 
 // 1. Uses GLOBAL settings (e.g. Gemini 2.5 Flash from config)
 const defaultResponse = await askAgent("Hello!");
@@ -140,7 +140,7 @@ You can use `askAgent` within Next.js Server Actions for a clean client-server i
 ```typescript
 'use server';
 
-import { askAgent } from 'bot2site';
+import { askAgent } from 'bot4site';
 
 export async function getAnswer(question: string) {
   const text = await askAgent(question);

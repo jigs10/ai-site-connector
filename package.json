@@ -1,6 +1,6 @@
 {
-  "name": "bot2site",
-  "version": "1.0.1",
+  "name": "bot4site",
+  "version": "1.0.0",
   "description": "Seamlessly connect AI chat agents to your website with automatic scraping and pre-built React components.",
   "type": "module",
   "author": "Jignesh Zala <jigs@genpdf.app>",
@@ -26,7 +26,7 @@
     "gemini"
   ],
   "bin": {
-    "bot2site": "./dist/bin.js"
+    "bot4site": "./dist/bin.js"
   },
   "main": "./dist/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
-# Contributing to Bot2site 🚀
+# Contributing to Bot4site 🚀
 
-Thank you for your interest in contributing to Bot2site! We welcome contributions from everyone.
+Thank you for your interest in contributing to Bot4site! We welcome contributions from everyone.
 
 ## Code of Conduct
 
@@ -82,4 +82,4 @@ Please be respectful and professional in all your interactions. We follow the ge
 
 ## License
 
-By contributing to Bot2site, you agree that your contributions will be licensed under the MIT License.
+By contributing to Bot4site, you agree that your contributions will be licensed under the MIT License.

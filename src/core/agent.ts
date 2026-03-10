@@ -44,7 +44,7 @@ export function getModel(overrides?: { provider?: string; model?: string }) {
 // Helper to get knowledge base content
 export function getKnowledge() {
   if (!fs.existsSync(KNOWLEDGE_PATH)) {
-    throw new Error("Knowledge base not found. Run 'npx bot2site setup' first.");
+    throw new Error("Knowledge base not found. Run 'npx bot4site setup' first.");
   }
   return fs.readFileSync(KNOWLEDGE_PATH, 'utf-8');
 }

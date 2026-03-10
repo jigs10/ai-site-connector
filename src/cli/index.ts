@@ -24,14 +24,14 @@ function getVersion() {
       return JSON.parse(fs.readFileSync(devPkgPath, "utf-8")).version;
     }
   } catch {
-    return "1.0.1";
+    return "1.0.0";
   }
-  return "1.0.1";
+  return "1.0.0";
 }
 
 function printHelp() {
   console.log(`
-Usage: bot2site [command] [options]
+Usage: bot4site [command] [options]
 
 Commands:
   setup      Interactive setup to configure AI and scrape site (default)
