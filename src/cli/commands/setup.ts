@@ -91,6 +91,12 @@ export async function setupCommand() {
           initialValue: (existingConfig.limit || 20).toString(),
           validate: (v) => (isNaN(Number(v)) ? "Must be a number" : undefined),
         }),
+      systemInstruction: () =>
+        p.text({
+          message: "Define the AI's global persona/instructions",
+          placeholder: "e.g., You are a helpful support agent for our SaaS.",
+          initialValue: existingConfig.systemInstruction || "You are an expert assistant.",
+        }),
       saveConfig: () =>
         p.confirm({
           message: "Save these settings to config and .env?",
@@ -113,6 +119,7 @@ export async function setupCommand() {
       model: project.model as string,
       url: project.url as string,
       limit: Number(project.limit),
+      systemInstruction: project.systemInstruction as string,
       updatedAt: new Date().toISOString(),
     };
     saveConfig(configData);

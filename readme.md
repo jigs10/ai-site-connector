@@ -51,7 +51,8 @@ The `ai-site.config.json` file is used to configure the AI model, provider, and 
   "provider": "google",
   "updatedAt": "2026-03-09T04:44:35.157Z",
   "url": "https://example.com/",
-  "limit": 20
+  "limit": 20,
+  "systemInstruction": "You are a helpful customer support agent for my website."
 }
 ```
 
@@ -105,6 +106,30 @@ import { askAgent } from 'bot2site';
 // 1. Simple text response (supports string or message history)
 const text = await askAgent("How do I contact support?");
 console.log(text);
+```
+
+### Global vs. Local Overrides
+
+Bot2site uses a hierarchical configuration system. Your `ai-site.config.json` serves as the **Global Default**, but you can provide **Local Overrides** for specific function calls.
+
+```typescript
+import { askAgent } from 'bot2site';
+
+// 1. Uses GLOBAL settings (e.g. Gemini 2.5 Flash from config)
+const defaultResponse = await askAgent("Hello!");
+
+// 2. Uses LOCAL overrides for this specific call
+const customResponse = await askAgent("Special task", {
+  provider: "anthropic",
+  model: "claude-opus-4.6", // Specifically use a different provider and model
+  systemInstruction: "You are a code reviewer."
+});
+
+// 3. Provider/Model Coupling
+// If you override the provider but NOT the model, it automatically 
+// uses that provider's default to prevent cross-provider errors.
+const providerSwap = await askAgent("Hi", { provider: 'google' }); 
+// ^ Uses Google default (Gemini) instead of the global OpenAI config
 ```
 
 ### Next.js Server Actions Example

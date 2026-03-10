@@ -6,6 +6,7 @@ export interface AiSiteConfig {
   model?: string;
   url?: string;
   limit?: number;
+  systemInstruction?: string;
   updatedAt?: string;
 }
 
