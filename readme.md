@@ -4,6 +4,7 @@ Seamlessly connect AI chat bots to your website. This CLI tool automates website
 
 [![npm version](https://img.shields.io/npm/v/bot4site.svg)](https://www.npmjs.com/package/bot4site)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/jigs10?color=ea4aaa&logo=github)](https://github.com/sponsors/jigs10)
 
 Bot4site is a command-line interface (CLI) tool designed to interact with AI models and scrape website content. It provides functionalities for setting up your environment, configuring AI models and data sources, and engaging in chat-based interactions with the configured AI.
 
