@@ -183,6 +183,12 @@ export default function Home() {
 
 We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
+## Support the Project 💖
+
+If you find **Bot4site** helpful and want to support its development, consider becoming a sponsor. Your support helps cover costs for testing and allows me to dedicate more time to maintaining the project.
+
+[👉 Sponsor jigs10 on GitHub](https://github.com/sponsors/jigs10)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
