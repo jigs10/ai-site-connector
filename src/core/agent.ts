@@ -4,6 +4,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import fs from 'node:fs';
 import { loadConfig, KNOWLEDGE_PATH, type AiSiteConfig } from './config.js';
+import { queryPinecone } from './vector-db.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -56,9 +57,17 @@ export async function askAgent(input: string | any[], overrides?: Partial<AiSite
   // Logic for merging is now handled inside getModel to ensure provider/model sync
   const systemInstruction = overrides?.systemInstruction || config.systemInstruction || "You are an expert assistant.";
 
+  let knowledge = "";
+  if (config.storage === 'pinecone' && config.pineconeIndex) {
+    const query = typeof input === 'string' ? input : (input[input.length - 1]?.content || "");
+    knowledge = await queryPinecone(query, config.pineconeIndex);
+  } else {
+    knowledge = getKnowledge();
+  }
+
   const options: any = {
     model: getModel({ provider: overrides?.provider, model: overrides?.model }),
-    system: `${systemInstruction} Knowledge: ${getKnowledge()}`,
+    system: `${systemInstruction} Knowledge: ${knowledge}`,
   };
 
   if (typeof input === 'string') {

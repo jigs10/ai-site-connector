@@ -7,6 +7,8 @@ export interface AiSiteConfig {
   url?: string;
   limit?: number;
   systemInstruction?: string;
+  storage?: "local" | "pinecone";
+  pineconeIndex?: string;
   updatedAt?: string;
 }
 
@@ -25,7 +27,7 @@ export function saveConfig(config: AiSiteConfig) {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
 }
 
-export function updateEnv(provider: string, aiKey?: string, firecrawlKey?: string) {
+export function updateEnv(provider: string, aiKey?: string, firecrawlKey?: string, pineconeKey?: string) {
   const envKeyName = 
     provider === "openai" ? "OPENAI_API_KEY" : 
     provider === "google" ? "GEMINI_API_KEY" : "ANTHROPIC_API_KEY";
@@ -41,6 +43,9 @@ export function updateEnv(provider: string, aiKey?: string, firecrawlKey?: strin
   }
   if (firecrawlKey && !existingEnv.includes("FIRECRAWL_API_KEY=")) {
     envEntry += `\nFIRECRAWL_API_KEY=${firecrawlKey}`;
+  }
+  if (pineconeKey && !existingEnv.includes("PINECONE_API_KEY=")) {
+    envEntry += `\nPINECONE_API_KEY=${pineconeKey}`;
   }
 
   if (envEntry) {

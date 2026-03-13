@@ -97,6 +97,22 @@ export async function setupCommand() {
           placeholder: "e.g., You are a helpful support agent for our SaaS.",
           initialValue: existingConfig.systemInstruction || "You are an expert assistant.",
         }),
+      storage: () =>
+        p.select({
+          message: "Where would you like to store the knowledge base?",
+          initialValue: existingConfig.storage || "local",
+          options: [
+            { value: "local", label: "Local Markdown file", hint: "Simple, no extra cost" },
+            { value: "pinecone", label: "Vector DB (Pinecone) [Beta]", hint: "Scalable search" },
+          ],
+        }),
+      pineconeKey: ({ results }) => {
+        if (results.storage !== "pinecone" || process.env.PINECONE_API_KEY) return;
+        return p.password({
+          message: "Enter Pinecone API Key",
+          validate: (v) => (!v ? "Required for Vector DB" : undefined),
+        });
+      },
       saveConfig: () =>
         p.confirm({
           message: "Save these settings to config and .env?",
@@ -120,10 +136,17 @@ export async function setupCommand() {
       url: project.url as string,
       limit: Number(project.limit),
       systemInstruction: project.systemInstruction as string,
+      storage: project.storage as AiSiteConfig["storage"],
+      pineconeIndex: project.storage === "pinecone" ? "bot4site-index" : undefined,
       updatedAt: new Date().toISOString(),
     };
     saveConfig(configData);
-    updateEnv(project.provider as string, project.aiKey as string, project.firecrawlKey as string);
+    updateEnv(
+      project.provider as string, 
+      project.aiKey as string, 
+      project.firecrawlKey as string,
+      project.pineconeKey as string
+    );
     
     p.log.step(color.green("Config and .env updated."));
   }
@@ -132,13 +155,24 @@ export async function setupCommand() {
   s.start(`Analyzing ${project.url}...`);
   try {
     process.env.FIRECRAWL_API_KEY = (project.firecrawlKey as string) || process.env.FIRECRAWL_API_KEY;
+    if (project.storage === "pinecone") {
+      process.env.PINECONE_API_KEY = (project.pineconeKey as string) || process.env.PINECONE_API_KEY;
+    }
+
     const markdown = await scrapeToMarkdown(project.url as string, Number(project.limit));
 
     fs.writeFileSync(KNOWLEDGE_PATH, markdown);
 
-    s.stop(`Knowledge Base created: ${color.cyan("ai-knowledge.md")}`);
+    if (project.storage === "pinecone") {
+      s.message("Uploading to Pinecone...");
+      const { uploadToPinecone } = await import("../../core/vector-db.js");
+      await uploadToPinecone(markdown, "bot4site-index");
+      s.stop(`Knowledge Base created and uploaded to ${color.cyan("Pinecone")}`);
+    } else {
+      s.stop(`Knowledge Base created: ${color.cyan("ai-knowledge.md")}`);
+    }
   } catch (err: any) {
-    s.stop(color.red("Scraping failed"));
+    s.stop(color.red("Scraping/Upload failed"));
     p.log.error(err.message);
     process.exit(1);
   }
@@ -149,7 +183,8 @@ export async function setupCommand() {
       `${color.bold("Files Created/Updated:")}\n` +
       `• ${color.cyan("ai-knowledge.md")} (Your context)\n` +
       `• ${color.cyan(".env")} (API Keys stored)\n` +
-      `• ${color.cyan("ai-site.config.json")} (Preferences)\n\n` +
+      `• ${color.cyan("ai-site.config.json")} (Preferences)\n` +
+      (project.storage === "pinecone" ? `• ${color.cyan("Pinecone Index")} (Vector storage)\n\n` : "\n") +
       `${color.bold("Next steps:")}\n` +
       `${color.yellow("1.")} Import ${color.green("askAgent")} in your code\n` +
       `${color.yellow("2.")} Run ${color.magenta("npx bot4site chat")} to start chatting`

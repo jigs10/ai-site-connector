@@ -53,7 +53,9 @@ The `ai-site.config.json` file is used to configure the AI model, provider, and 
   "updatedAt": "2026-03-09T04:44:35.157Z",
   "url": "https://example.com/",
   "limit": 20,
-  "systemInstruction": "You are a helpful customer support agent for my website."
+  "systemInstruction": "You are a helpful customer support agent for my website.",
+  "storage": "pinecone",
+  "pineconeIndex": "bot4site-index"
 }
 ```
 
@@ -62,6 +64,7 @@ You can modify these values to suit your needs. Sensitive keys are stored in a `
 - `GEMINI_API_KEY`
 - `ANTHROPIC_API_KEY`
 - `FIRECRAWL_API_KEY`
+- `PINECONE_API_KEY` (Required for Vector DB)
 
 ## Usage
 
@@ -96,6 +99,21 @@ To verify your setup and interact with your site's data via the CLI:
 ```bash
 npx bot4site chat
 ```
+
+### Vector Database Setup (Pinecone) [Beta]
+
+Bot4site supports using **Pinecone** as a vector database for more scalable and efficient context retrieval. Instead of reading a massive Markdown file for every query, the tool performs a semantic search to find only the most relevant chunks.
+
+#### Setup Steps:
+1.  **Get a Pinecone API Key**: Sign up at [pinecone.io](https://www.pinecone.io/) and create an API key.
+2.  **Run Setup**: Run `npx bot4site setup` and select `Vector DB (Pinecone) [Beta]` when prompted for storage.
+3.  **Automatic Indexing**: The tool will automatically create a serverless index (default: `bot4site-index`) using the `llama-text-embed-v2` embedding model on AWS.
+
+#### How it Works:
+1.  **Scrape**: Website content is scraped using Firecrawl.
+2.  **Chunk**: The content is split into manageable text segments.
+3.  **Embed & Upsert**: Chunks are uploaded to Pinecone with integrated serverless embeddings.
+4.  **Semantic Search**: When chatting, the tool queries Pinecone to retrieve relevant context dynamically.
 
 ## Programmatic Usage
 
