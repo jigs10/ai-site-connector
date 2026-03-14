@@ -37,7 +37,11 @@ export async function setupCommand() {
             color.dim("──────────────────────────────────────────────────") + "\n" +
             color.bold("Next steps:") + "\n" +
             color.yellow("1.") + " Review the newly added components in your 'components' directory.\n" +
-            color.yellow("2.") + " Integrate them into your React/Next.js application as needed.");
+            color.yellow("2.") + " Integrate them into your React/Next.js application as needed.\n" +
+            color.yellow("3.") + " " + color.bold("Vercel Users:") + " Add the following to your " + color.cyan("next.config.mjs") + " to ensure config files are bundled:\n\n" +
+            color.dim("   outputFileTracingIncludes: {\n" +
+                      "     '/**': ['./ai-site.config.json'],\n" +
+                      "   },"));
     return;
   }
 

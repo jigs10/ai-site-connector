@@ -201,6 +201,21 @@ export default function Home() {
 }
 ```
 
+### Vercel Deployment (Next.js)
+
+When deploying to Vercel, Next.js needs to know which files to include in the serverless function bundle (NFT). Since `ai-site.config.json` is read at runtime, you must include it in your `next.config.mjs`:
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  outputFileTracingIncludes: {
+    '/**': ['./ai-site.config.json'],
+  },
+};
+
+export default nextConfig;
+```
+
 ## Contributing
 
 We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
