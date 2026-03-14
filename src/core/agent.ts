@@ -66,17 +66,13 @@ export async function askAgent(input: string | any[], overrides?: Partial<AiSite
   // Logic for merging is now handled inside getModel to ensure provider/model sync
   const systemInstruction = overrides?.systemInstruction || config.systemInstruction || "You are an expert assistant.";
 
-  // Use explicit config or override, defaulting to local if nothing is set
-  const storage = overrides?.storage || config.storage || 'local';
+  // Determine storage mode: preference for override, then config, then ENV fallback
+  const storage = overrides?.storage || config.storage || (process.env.PINECONE_API_KEY ? 'pinecone' : 'local');
 
   let knowledge = "";
   if (storage === 'pinecone') {
-    const pineconeIndex = overrides?.pineconeIndex || config.pineconeIndex;
+    const pineconeIndex = overrides?.pineconeIndex || config.pineconeIndex || process.env.PINECONE_INDEX || 'bot4site-index';
     
-    if (!pineconeIndex) {
-      throw new Error("Storage is set to 'pinecone' but 'pineconeIndex' is missing in ai-site.config.json. Run setup again or add it manually.");
-    }
-
     if (!process.env.PINECONE_API_KEY) {
       throw new Error("Storage is set to 'pinecone' but PINECONE_API_KEY is missing from environment variables.");
     }
