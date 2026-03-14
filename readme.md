@@ -102,18 +102,22 @@ npx bot4site chat
 
 ### Vector Database Setup (Pinecone) [Beta]
 
-Bot4site supports using **Pinecone** as a vector database for more scalable and efficient context retrieval. Instead of reading a massive Markdown file for every query, the tool performs a semantic search to find only the most relevant chunks.
+Bot4site supports using **Pinecone** as a vector database for more scalable and efficient context retrieval. 
+
+#### Key Differences from Local Flow:
+- **No Local File**: When using Pinecone, the scraped content is uploaded directly to your index. No `ai-knowledge.md` is created.
+- **Strict Validation**: The system will throw clear errors if your `pineconeIndex` is missing from `ai-site.config.json` or if the `PINECONE_API_KEY` environment variable is not set.
 
 #### Setup Steps:
 1.  **Get a Pinecone API Key**: Sign up at [pinecone.io](https://www.pinecone.io/) and create an API key.
 2.  **Run Setup**: Run `npx bot4site setup` and select `Vector DB (Pinecone) [Beta]` when prompted for storage.
-3.  **Automatic Indexing**: The tool will automatically create a serverless index (default: `bot4site-index`) using the `llama-text-embed-v2` embedding model on AWS.
+3.  **Automatic Indexing**: The tool will automatically create a serverless index (default: `bot4site-index`) using the `llama-text-embed-v2` embedding model on AWS. The index name will be saved to your `ai-site.config.json`.
 
 #### How it Works:
 1.  **Scrape**: Website content is scraped using Firecrawl.
 2.  **Chunk**: The content is split into manageable text segments.
 3.  **Embed & Upsert**: Chunks are uploaded to Pinecone with integrated serverless embeddings.
-4.  **Semantic Search**: When chatting, the tool queries Pinecone to retrieve relevant context dynamically.
+4.  **Semantic Search**: When chatting, the tool queries Pinecone using the index specified in your config to retrieve relevant context dynamically.
 
 ## Programmatic Usage
 
