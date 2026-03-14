@@ -1,7 +1,6 @@
 import * as p from "@clack/prompts";
 import color from "picocolors";
 import fs from "node:fs";
-import path from "node:path";
 import { providerModels } from "../../core/constants.js";
 import { loadConfig, saveConfig, updateEnv, KNOWLEDGE_PATH, type AiSiteConfig } from "../../core/config.js";
 import { scrapeToMarkdown } from "../../core/scraper.js";
@@ -161,14 +160,13 @@ export async function setupCommand() {
 
     const markdown = await scrapeToMarkdown(project.url as string, Number(project.limit));
 
-    fs.writeFileSync(KNOWLEDGE_PATH, markdown);
-
     if (project.storage === "pinecone") {
       s.message("Uploading to Pinecone...");
       const { uploadToPinecone } = await import("../../core/vector-db.js");
       await uploadToPinecone(markdown, "bot4site-index");
       s.stop(`Knowledge Base created and uploaded to ${color.cyan("Pinecone")}`);
     } else {
+      fs.writeFileSync(KNOWLEDGE_PATH, markdown);
       s.stop(`Knowledge Base created: ${color.cyan("ai-knowledge.md")}`);
     }
   } catch (err: any) {
@@ -180,11 +178,12 @@ export async function setupCommand() {
   p.outro(
     `${color.bgGreen(color.black(" Success! "))} Your site is now AI-ready.\n\n` +
       `${color.dim("──────────────────────────────────────────────────")}\n` +
-      `${color.bold("Files Created/Updated:")}\n` +
-      `• ${color.cyan("ai-knowledge.md")} (Your context)\n` +
+      `${color.bold("Files/Resources Created:")}\n` +
+      (project.storage === "pinecone" 
+        ? `• ${color.cyan("Pinecone Index")} (Vector storage)\n` 
+        : `• ${color.cyan("ai-knowledge.md")} (Local context)\n`) +
       `• ${color.cyan(".env")} (API Keys stored)\n` +
-      `• ${color.cyan("ai-site.config.json")} (Preferences)\n` +
-      (project.storage === "pinecone" ? `• ${color.cyan("Pinecone Index")} (Vector storage)\n\n` : "\n") +
+      `• ${color.cyan("ai-site.config.json")} (Preferences)\n\n` +
       `${color.bold("Next steps:")}\n` +
       `${color.yellow("1.")} Import ${color.green("askAgent")} in your code\n` +
       `${color.yellow("2.")} Run ${color.magenta("npx bot4site chat")} to start chatting`

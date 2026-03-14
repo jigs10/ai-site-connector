@@ -29,15 +29,24 @@ export function getModel(overrides?: { provider?: string; model?: string }) {
 
   if (provider === 'google') {
     const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("AI provider is set to 'google' but GEMINI_API_KEY is missing from environment variables.");
+    }
     const google = createGoogleGenerativeAI({ apiKey });
     return google(modelName || 'gemini-3.1-flash-lite');
   } else if (provider === 'anthropic') {
     const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      throw new Error("AI provider is set to 'anthropic' but ANTHROPIC_API_KEY is missing from environment variables.");
+    }
     const anthropic = createAnthropic({ apiKey });
     return anthropic(modelName || 'claude-sonnet-4.6');
   } else {
     const apiKey = process.env.OPENAI_API_KEY;
-    const openai = createOpenAI({ apiKey });
+    if (!apiKey && (provider === 'openai' || !provider)) {
+      throw new Error("AI provider is set to 'openai' but OPENAI_API_KEY is missing from environment variables.");
+    }
+    const openai = createOpenAI({ apiKey: apiKey || '' });
     return openai(modelName || 'gpt-5-mini');
   }
 }
@@ -57,12 +66,27 @@ export async function askAgent(input: string | any[], overrides?: Partial<AiSite
   // Logic for merging is now handled inside getModel to ensure provider/model sync
   const systemInstruction = overrides?.systemInstruction || config.systemInstruction || "You are an expert assistant.";
 
+  // Use explicit config or override, defaulting to local if nothing is set
+  const storage = overrides?.storage || config.storage || 'local';
+
   let knowledge = "";
-  if (config.storage === 'pinecone' && config.pineconeIndex) {
+  if (storage === 'pinecone') {
+    const pineconeIndex = overrides?.pineconeIndex || config.pineconeIndex;
+    
+    if (!pineconeIndex) {
+      throw new Error("Storage is set to 'pinecone' but 'pineconeIndex' is missing in ai-site.config.json. Run setup again or add it manually.");
+    }
+
+    if (!process.env.PINECONE_API_KEY) {
+      throw new Error("Storage is set to 'pinecone' but PINECONE_API_KEY is missing from environment variables.");
+    }
+
     const query = typeof input === 'string' ? input : (input[input.length - 1]?.content || "");
-    knowledge = await queryPinecone(query, config.pineconeIndex);
-  } else {
+    knowledge = await queryPinecone(query, pineconeIndex);
+  } else if (storage === 'local') {
     knowledge = getKnowledge();
+  } else {
+    throw new Error(`Unsupported storage type: ${storage}`);
   }
 
   const options: any = {
