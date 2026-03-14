@@ -1,6 +1,6 @@
 {
   "name": "bot4site",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Seamlessly connect AI chat agents to your website with automatic scraping and pre-built React components.",
   "type": "module",
   "author": "Jignesh Zala <jigs@genpdf.app>",
